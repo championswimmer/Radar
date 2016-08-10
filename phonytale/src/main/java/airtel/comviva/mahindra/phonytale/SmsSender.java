@@ -64,7 +64,7 @@ public class SmsSender {
      * @param serviceClass The service to which an intent will be sent when message is sent and delivered
      * @param ctx Context using which the target service will be started
      */
-    public static void  sendSms (String destination, String message, Class<? extends Service> serviceClass, Context ctx) {
+    public static int sendSms (String destination, String message, Class<? extends Service> serviceClass, Context ctx) {
         initialise();
 
         int reqCode = (int) System.currentTimeMillis();
@@ -88,6 +88,7 @@ public class SmsSender {
                 PendingIntent.getService(ctx, reqCode, sentIntent, 0),
                 PendingIntent.getService(ctx, reqCode, deliveredIntent, 0)
         );
+        return reqCode;
     }
 
     public static void createSmsSendingTask(String recipient, String msgContent, int interval, Context ctx,

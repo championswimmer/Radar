@@ -21,7 +21,6 @@ import airtel.comviva.mahindra.radar.R;
 import airtel.comviva.mahindra.radar.db.DbManager;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSTasks;
 import airtel.comviva.mahindra.radar.models.SMSTask;
-import airtel.comviva.mahindra.radar.services.RadarSmsSendService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -111,7 +110,7 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
         }
 
         @Override
-        public void onBindViewHolder(SmsTaskHolder holder, final int position) {
+        public void onBindViewHolder(final SmsTaskHolder holder, int position) {
 
             holder.tvInterval.setText(String.valueOf(smsTasks.get(position).getInterval()));
             holder.tvRecipient.setText(smsTasks.get(position).getRecipient());
@@ -126,12 +125,12 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     SmsSender.cancelSmsSendingTask(
-                                            smsTasks.get(position).getRecipient(),
-                                            smsTasks.get(position).getMessage(),
-                                            smsTasks.get(position).getInterval(),
+                                            smsTasks.get(holder.getAdapterPosition()).getRecipient(),
+                                            smsTasks.get(holder.getAdapterPosition()).getMessage(),
+                                            smsTasks.get(holder.getAdapterPosition()).getInterval(),
                                             getActivity()
                                     );
-                                    TableSMSTasks.deleteTask(db, smsTasks.get(position).getId());
+                                    TableSMSTasks.deleteTask(db, smsTasks.get(holder.getAdapterPosition()).getId());
                                     refreshList();
                                 }
                             })
@@ -150,7 +149,6 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
 
         @Override
         public int getItemCount() {
-            Log.d(TAG, "getItemCount: size = " + smsTasks.size());
             return smsTasks.size();
         }
     }

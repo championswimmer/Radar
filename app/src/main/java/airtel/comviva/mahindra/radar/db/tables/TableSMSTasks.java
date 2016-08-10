@@ -3,6 +3,7 @@ package airtel.comviva.mahindra.radar.db.tables;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import static airtel.comviva.mahindra.radar.db.tables.DbConsts.*;
  * Created by championswimmer on 10/8/16.
  */
 public class TableSMSTasks {
+    public static final String TAG = "SmsTaskTable";
 
     public static final String TABLE_NAME = "smstasks";
 
@@ -39,7 +41,7 @@ public class TableSMSTasks {
             + RBR + SEMICOLON;
 
     public static long addTask (SQLiteDatabase db, int interval, String recipient, String message) {
-        db.beginTransaction();
+        Log.d(TAG, "addTask: ");
         ContentValues cv = new ContentValues();
         cv.put(Columns.TYPE, "send");
         cv.put(Columns.INTERVAL, interval);
@@ -51,21 +53,20 @@ public class TableSMSTasks {
                 null,
                 cv
         );
-        db.endTransaction();
         return id;
     }
 
     public static void deleteTask (SQLiteDatabase db, int id) {
-        db.beginTransaction();
+        Log.d(TAG, "deleteTask: ");
         db.delete(TABLE_NAME,
                 Columns.ID + " = ?",
                 new String[]{String.valueOf(id)});
-        db.endTransaction();
     }
 
 
 
     public static ArrayList<SMSTask> getAllTasks (SQLiteDatabase db) {
+        Log.d(TAG, "getAllTasks: ");
 
         ArrayList<SMSTask> smsTasks = new ArrayList<>();
 

@@ -42,12 +42,18 @@ public abstract class SmsSendService extends Service {
                         intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT)
                 );
             } else {
-                SmsSender.sendSms(
+                int smsId = SmsSender.sendSms(
                         intent.getStringExtra(SmsSender.EXTRA_RECEPIENT),
                         intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT),
                         SmsSender.getSmsSendObserverClass(),
                         this
                 );
+                onSmsSending(
+                        intent.getStringExtra(SmsSender.EXTRA_RECEPIENT),
+                        intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT),
+                        smsId
+                );
+
             }
         } else {
             Log.e(TAG, "onStartCommand: Does not have action = " + SmsSender.ACTION_SEND_SMS);
@@ -74,6 +80,7 @@ public abstract class SmsSendService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public abstract void onSmsSent(String recipient, String message, int sendTime);
-    public abstract void onSmsDelivered(String recipient, String message, int sendTime);
+    public abstract void onSmsSending(String recipient, String message, int smsId);
+    public abstract void onSmsSent(String recipient, String message, int smsId);
+    public abstract void onSmsDelivered(String recipient, String message, int smsId);
 }

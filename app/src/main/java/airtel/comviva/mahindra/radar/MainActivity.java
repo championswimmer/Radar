@@ -34,12 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        SmsSender.initialise();
-//
-//        //SmsSender.sendSms("+919868058844", "Yo Hi !");
-//
-//        startService(new Intent(this, MyService.class));
-
         int permissions = 0;
         for (String permission : Constants.requiredPermissions) {
             if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED ) {
