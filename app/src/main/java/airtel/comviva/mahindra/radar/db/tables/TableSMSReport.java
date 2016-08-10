@@ -55,7 +55,7 @@ public class TableSMSReport {
 
     public static ArrayList<SMSReportItem> getAllReports(SQLiteDatabase db) {
         Cursor c = db.query(TABLE_NAME,
-                FULL_PROJECTION, null, null, null, null, null);
+                FULL_PROJECTION, null, null, null, null, Columns.ID + " DESC");
 
         ArrayList<SMSReportItem> smsReports = new ArrayList<>();
 

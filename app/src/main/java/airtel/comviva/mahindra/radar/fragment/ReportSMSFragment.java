@@ -86,7 +86,7 @@ public class ReportSMSFragment extends BaseRadarFragment {
 
     public class SMSReportHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvRecipient, tvStatus, tvMessage;
+        public TextView tvRecipient, tvStatus, tvMessage, tvMsgid;
         public View itemView;
 
         public SMSReportHolder(View itemView) {
@@ -95,6 +95,7 @@ public class ReportSMSFragment extends BaseRadarFragment {
             tvRecipient = (TextView) itemView.findViewById(R.id.tv_recipient);
             tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
             tvMessage = (TextView) itemView.findViewById(R.id.tv_msg_content);
+            tvMsgid = (TextView) itemView.findViewById(R.id.tv_msg_id);
             this.itemView = itemView;
         }
 
@@ -117,6 +118,7 @@ public class ReportSMSFragment extends BaseRadarFragment {
             holder.tvStatus.setText(smsReports.get(position).getStatusString());
             holder.tvRecipient.setText(smsReports.get(position).getRecipient());
             holder.tvMessage.setText(smsReports.get(position).getMessage());
+            holder.tvMsgid.setText(String.valueOf(smsReports.get(position).getSmsId()));
 
         }
 
