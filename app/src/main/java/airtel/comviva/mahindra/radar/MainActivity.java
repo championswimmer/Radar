@@ -74,10 +74,13 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 2:
                         i = new Intent(MainActivity.this, ReportActivity.class);
+                        break;
                     case 1:
                         i = new Intent(MainActivity.this, ShowTaskActivity.class);
+                        break;
                     case 0: default:
                         i = new Intent(MainActivity.this, ConfigureTaskActivity.class);
+                        break;
                 }
 
                 startActivity(i);

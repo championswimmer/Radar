@@ -1,0 +1,79 @@
+package airtel.comviva.mahindra.phonytale.services;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import airtel.comviva.mahindra.phonytale.SmsSender;
+
+/**
+ * Created by championswimmer on 10/8/16.
+ */
+public abstract class SmsSendService extends Service {
+
+    public static final String TAG = "PhonyTale:SMS";
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        if (intent == null) {
+            return START_STICKY;
+        }
+
+        Log.d(TAG, "onStartCommand: intent = " + intent.toString());
+
+        if (intent.getAction().equals(SmsSender.ACTION_SEND_SMS)) {
+            if (intent.getStringExtra(SmsSender.EXTRA_RECEPIENT) == null) {
+                Log.e(TAG, "onStartCommand: Does not have extra = " + SmsSender.EXTRA_RECEPIENT);
+                return 0;
+            }
+
+            if (SmsSender.getSmsSendObserverClass() == null) {
+                SmsSender.sendSms(
+                        intent.getStringExtra(SmsSender.EXTRA_RECEPIENT),
+                        intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT)
+                );
+            } else {
+                SmsSender.sendSms(
+                        intent.getStringExtra(SmsSender.EXTRA_RECEPIENT),
+                        intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT),
+                        SmsSender.getSmsSendObserverClass(),
+                        this
+                );
+            }
+        } else {
+            Log.e(TAG, "onStartCommand: Does not have action = " + SmsSender.ACTION_SEND_SMS);
+
+        }
+
+        if (intent.getAction().equals(SmsSender.ACTION_SMS_DELIVERED)) {
+            Log.d(TAG, "onStartCommand: delivered" + intent.getStringExtra(SmsSender.EXTRA_RECEPIENT));
+            onSmsDelivered(
+                    intent.getStringExtra(SmsSender.EXTRA_RECEPIENT),
+                    intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT),
+                    intent.getIntExtra(SmsSender.EXTRA_MSG_CODE, 0)
+            );
+        }
+        if (intent.getAction().equals(SmsSender.ACTION_SMS_SENT)) {
+            Log.d(TAG, "onStartCommand: sent" + intent.getStringExtra(SmsSender.EXTRA_RECEPIENT));
+            onSmsSent(
+                    intent.getStringExtra(SmsSender.EXTRA_RECEPIENT),
+                    intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT),
+                    intent.getIntExtra(SmsSender.EXTRA_MSG_CODE, 0)
+            );
+        }
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public abstract void onSmsSent(String recipient, String message, int sendTime);
+    public abstract void onSmsDelivered(String recipient, String message, int sendTime);
+}

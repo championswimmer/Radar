@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ConfigureSMSTaskFragment">
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <EditText
+            android:ems="12"
+            android:maxLength="14"
+            android:id="@+id/et_recipient"
+            android:hint="Recipient"
+            android:inputType="phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:ems="12"
+            android:maxLength="2"
+            android:id="@+id/et_interval"
+            android:hint="Interval (min)"
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:ems="12"
+            android:minLines="3"
+            android:gravity="bottom"
+            android:id="@+id/et_msg_content"
+            android:hint="Message\nContents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Create"
+            android:id="@+id/btn_create_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</FrameLayout>
