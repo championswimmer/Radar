@@ -16,19 +16,55 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MyService"
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.SmsObserveService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".services.SmsSendService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".receiver.SmsReceivedReceiver"
             android:enabled="true"
             android:exported="true">
-
-        </service>
-
-        <service android:name=".services.SmsObserveService" android:exported="true" android:enabled="true"></service>
-        <service android:name=".services.SmsSendService" android:exported="true" android:enabled="true"></service>
-        <receiver android:name=".receiver.SmsReceivedReceiver" android:enabled="true" android:exported="true">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activities.ConfigureTaskActivity"
+            android:label="@string/title_activity_configure_task"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="airtel.comviva.mahindra.radar.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ShowTaskActivity"
+            android:label="@string/title_activity_show_task"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="airtel.comviva.mahindra.radar.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="airtel.comviva.mahindra.radar.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
