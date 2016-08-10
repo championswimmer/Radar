@@ -21,6 +21,14 @@
             android:exported="true">
 
         </service>
+
+        <service android:name=".services.SmsObserveService" android:exported="true" android:enabled="true"></service>
+        <service android:name=".services.SmsSendService" android:exported="true" android:enabled="true"></service>
+        <receiver android:name=".receiver.SmsReceivedReceiver" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
