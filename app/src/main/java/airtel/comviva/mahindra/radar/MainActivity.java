@@ -21,6 +21,7 @@ import airtel.comviva.mahindra.phonytale.SmsSender;
 import airtel.comviva.mahindra.radar.activities.ConfigureTaskActivity;
 import airtel.comviva.mahindra.radar.activities.ReportActivity;
 import airtel.comviva.mahindra.radar.activities.ShowTaskActivity;
+import airtel.comviva.mahindra.radar.services.RadarSmsSendService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,11 +94,14 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PERM_REQ_CODE) {
             int results = 0;
-            for (int grant : grantResults) {
-                if (grant == PackageManager.PERMISSION_DENIED) {
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    Log.d(TAG, "onRequestPermissionsResult: denied = " + permissions[i]);
                     results++;
                 }
             }
+
+            Log.d(TAG, "onRequestPermissionsResult: results = " + results);
 
             if (results != 0) {
                 AlertDialog.Builder ad = new AlertDialog.Builder(this)
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
                         });
+                ad.create().show();
 
             }
         }

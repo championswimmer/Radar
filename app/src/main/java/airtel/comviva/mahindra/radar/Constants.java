@@ -12,11 +12,9 @@ public class Constants {
             READ_SMS,
             RECEIVE_SMS,
             SEND_SMS,
-            BROADCAST_SMS,
 
             CALL_PHONE,
             READ_CALL_LOG,
-            PROCESS_OUTGOING_CALLS,
             READ_PHONE_STATE
     };
 }

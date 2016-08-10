@@ -63,7 +63,7 @@ public class ConfigureSMSTaskFragment extends BaseRadarFragment {
                 );
 
                 SQLiteDatabase db = new DbManager(getActivity()).getWritableDatabase();
-                TableSMSTasks.addTask(db, interval, recipient);
+                TableSMSTasks.addTask(db, interval, recipient, msgContent);
             }
         });
 

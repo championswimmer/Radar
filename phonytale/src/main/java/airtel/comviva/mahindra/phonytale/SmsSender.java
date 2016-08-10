@@ -96,6 +96,7 @@ public class SmsSender {
         setSmsSendObserverClass(smsSendServiceClass);
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
+        //TODO: Make unique using data instead of extra
         Intent msi = new Intent(ctx, smsSendServiceClass);
         msi.setAction(SmsSender.ACTION_SEND_SMS);
         msi.putExtra(SmsSender.EXTRA_RECEPIENT, recipient);
@@ -121,19 +122,17 @@ public class SmsSender {
         );
     }
 
-    public static void cancelSmsSendingTask(String recipient, String msgContent, int interval, Context ctx,
-                                            Class<? extends SmsSendService> smsSendServiceClass) {
+    public static void cancelSmsSendingTask(String recipient, String msgContent, int interval, Context ctx) {
         Log.d(TAG, "cancelSmsSendingTask: ");
-        setSmsSendObserverClass(smsSendServiceClass);
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
-        Intent msi = new Intent(ctx, smsSendServiceClass);
+        Intent msi = new Intent(ctx, getSmsSendObserverClass());
         msi.setAction(SmsSender.ACTION_SEND_SMS);
         msi.putExtra(SmsSender.EXTRA_RECEPIENT, recipient);
         msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, msgContent);
 
 
-        Log.d(TAG, "createSmsSendingTask: intent = " + msi.toString());
+        Log.d(TAG, "cancelSmsSendingTask: intent = " + msi.toString());
 
         PendingIntent pi = PendingIntent.getService(
                 ctx,
@@ -142,7 +141,7 @@ public class SmsSender {
                 0
         );
 
-        Log.d(TAG, "createSmsSendingTask: pendingintent = " + pi.toString());
+        Log.d(TAG, "cancelSmsSendingTask: pendingintent = " + pi.toString());
         alarmManager.cancel(pi);
     }
 

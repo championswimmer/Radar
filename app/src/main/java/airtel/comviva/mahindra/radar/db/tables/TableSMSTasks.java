@@ -22,10 +22,11 @@ public class TableSMSTasks {
         String TYPE = "type";
         String INTERVAL = "interval";
         String RECIPIENT = "recipient";
+        String MESSAGE = "message";
     }
 
     public static String[] FULL_PROJECTION = {
-            Columns.ID, Columns.TYPE, Columns.INTERVAL, Columns.RECIPIENT
+            Columns.ID, Columns.TYPE, Columns.INTERVAL, Columns.RECIPIENT, Columns.MESSAGE
     };
 
     public static final String CMD_CREATE_TABLE =
@@ -33,22 +34,36 @@ public class TableSMSTasks {
             + Columns.ID + TYPE_INTEGER + TYPE_PK_AI + COMMA
             + Columns.TYPE + TYPE_TEXT + COMMA
             + Columns.INTERVAL + TYPE_INTEGER + COMMA
+            + Columns.MESSAGE + TYPE_TEXT + COMMA
             + Columns.RECIPIENT + TYPE_TEXT
             + RBR + SEMICOLON;
 
-    public static long addTask (SQLiteDatabase db, int interval, String recipient) {
-
+    public static long addTask (SQLiteDatabase db, int interval, String recipient, String message) {
+        db.beginTransaction();
         ContentValues cv = new ContentValues();
         cv.put(Columns.TYPE, "send");
         cv.put(Columns.INTERVAL, interval);
         cv.put(Columns.RECIPIENT, recipient);
+        cv.put(Columns.MESSAGE, message);
 
-        return db.insert(
+        long id =  db.insert(
                 TABLE_NAME,
                 null,
                 cv
         );
+        db.endTransaction();
+        return id;
     }
+
+    public static void deleteTask (SQLiteDatabase db, int id) {
+        db.beginTransaction();
+        db.delete(TABLE_NAME,
+                Columns.ID + " = ?",
+                new String[]{String.valueOf(id)});
+        db.endTransaction();
+    }
+
+
 
     public static ArrayList<SMSTask> getAllTasks (SQLiteDatabase db) {
 
@@ -67,9 +82,12 @@ public class TableSMSTasks {
         while (c.moveToNext()) {
             smsTasks.add(new SMSTask(
                     c.getInt(c.getColumnIndexOrThrow(Columns.INTERVAL)),
-                    c.getString(c.getColumnIndexOrThrow(Columns.RECIPIENT))
+                    c.getString(c.getColumnIndexOrThrow(Columns.RECIPIENT)),
+                    c.getString(c.getColumnIndexOrThrow(Columns.MESSAGE)),
+                    c.getInt(c.getColumnIndexOrThrow(Columns.ID))
             ));
         }
+        c.close();
 
         return smsTasks;
     }
