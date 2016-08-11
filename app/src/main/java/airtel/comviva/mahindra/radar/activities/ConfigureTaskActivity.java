@@ -24,6 +24,7 @@ import airtel.comviva.mahindra.radar.fragment.BaseRadarFragment;
 import airtel.comviva.mahindra.radar.fragment.ConfigureCallTaskFragment;
 import airtel.comviva.mahindra.radar.fragment.ConfigureDataTaskFragment;
 import airtel.comviva.mahindra.radar.fragment.ConfigureSMSTaskFragment;
+import airtel.comviva.mahindra.radar.fragment.ConfigureUSSDTaskFragment;
 
 public class ConfigureTaskActivity extends AppCompatActivity {
 
@@ -51,6 +52,7 @@ public class ConfigureTaskActivity extends AppCompatActivity {
         configureFragments = new Fragment[]{
                 new ConfigureSMSTaskFragment(),
                 new ConfigureCallTaskFragment(),
+                new ConfigureUSSDTaskFragment(),
                 new ConfigureDataTaskFragment()
         };
 
@@ -125,7 +127,7 @@ public class ConfigureTaskActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return configureFragments.length;
         }
 
         @Override

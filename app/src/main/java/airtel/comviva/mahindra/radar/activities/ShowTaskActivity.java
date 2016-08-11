@@ -50,9 +50,10 @@ public class ShowTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_task);
 
         showTaskFragments = new Fragment[]{
+                new ShowSMSTaskFragment(),
                 new ShowCallTaskFragment(),
-                new ShowDataTaskFragment(),
-                new ShowSMSTaskFragment()
+                new ShowSMSTaskFragment(),
+                new ShowDataTaskFragment()
         };
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -124,7 +125,7 @@ public class ShowTaskActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return showTaskFragments.length;
         }
 
         @Override

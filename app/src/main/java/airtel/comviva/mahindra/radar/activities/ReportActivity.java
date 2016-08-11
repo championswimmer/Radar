@@ -24,6 +24,7 @@ import airtel.comviva.mahindra.radar.fragment.BaseRadarFragment;
 import airtel.comviva.mahindra.radar.fragment.ReportCallFragment;
 import airtel.comviva.mahindra.radar.fragment.ReportDataFragment;
 import airtel.comviva.mahindra.radar.fragment.ReportSMSFragment;
+import airtel.comviva.mahindra.radar.fragment.ReportUSSDFragment;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -50,9 +51,10 @@ public class ReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
 
         reportFragments = new Fragment[]{
+                new ReportSMSFragment(),
                 new ReportCallFragment(),
+                new ReportUSSDFragment(),
                 new ReportDataFragment(),
-                new ReportSMSFragment()
         };
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -124,7 +126,7 @@ public class ReportActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return reportFragments.length;
         }
 
         @Override
