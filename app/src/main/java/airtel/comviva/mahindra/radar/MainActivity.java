@@ -19,6 +19,7 @@ import android.widget.ListView;
 
 import airtel.comviva.mahindra.phonytale.Caller;
 import airtel.comviva.mahindra.phonytale.SmsSender;
+import airtel.comviva.mahindra.phonytale.USSDSender;
 import airtel.comviva.mahindra.radar.activities.ConfigureTaskActivity;
 import airtel.comviva.mahindra.radar.activities.ReportActivity;
 import airtel.comviva.mahindra.radar.activities.ShowTaskActivity;
@@ -82,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        USSDSender.sendUSSD("*121#", this);
 
     }
 
