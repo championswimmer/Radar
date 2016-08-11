@@ -15,6 +15,7 @@ public class Constants {
 
             CALL_PHONE,
             READ_CALL_LOG,
-            READ_PHONE_STATE
+            READ_PHONE_STATE,
+            PROCESS_OUTGOING_CALLS
     };
 }

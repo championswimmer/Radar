@@ -67,7 +67,7 @@ public class SmsSender {
     public static int sendSms (String destination, String message, Class<? extends Service> serviceClass, Context ctx) {
         initialise();
 
-        int reqCode = (int) System.currentTimeMillis();
+        int reqCode = (int) (System.currentTimeMillis() >> 8);
 
         Intent sentIntent = new Intent(ctx, serviceClass);
         sentIntent.setAction(ACTION_SMS_SENT);

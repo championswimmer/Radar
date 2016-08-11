@@ -9,7 +9,9 @@ public class PhonytaleUri {
 
     public static final String SCHEME = "phonytale";
     public static final String HOST_SMS = "sms";
+    public static final String HOST_CALL = "call";
     public static final String PATH_SEND = "/send";
+    public static final String PATH_OUTGOING = "/outgoing";
     public static final String QUES = "?";
     public static final String AND = "&";
 
@@ -22,5 +24,11 @@ public class PhonytaleUri {
             + QUERY_TO + "=" + recipient + AND
             + QUERY_MSG + "=" + message + AND
             + QUERY_INTERVAL + "=" + interval);
+    }
+
+    public static Uri createOutgoingCall(String phoneNumber, int interval) {
+        return  Uri.parse(SCHEME + "://" + HOST_SMS + PATH_OUTGOING + QUES
+                + QUERY_TO + "=" + phoneNumber + AND
+                + QUERY_INTERVAL + "=" + interval);
     }
 }

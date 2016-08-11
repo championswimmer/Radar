@@ -2,12 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="airtel.comviva.mahindra.radar.fragment.ConfigureCallTaskFragment">
+    tools:context=".fragment.ConfigureSMSTaskFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <EditText
+            android:ems="12"
+            android:maxLength="14"
+            android:id="@+id/et_recipient"
+            android:hint="Call to (number)"
+            android:inputType="phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:ems="12"
+            android:maxLength="2"
+            android:id="@+id/et_interval"
+            android:hint="Interval (min)"
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:text="Create"
+            android:id="@+id/btn_create_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -5,6 +5,7 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import airtel.comviva.mahindra.radar.db.tables.TableCallTasks;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSReport;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSTasks;
 
@@ -30,6 +31,8 @@ public class DbManager  extends SQLiteOpenHelper{
 
         db.execSQL(TableSMSTasks.CMD_CREATE_TABLE);
         db.execSQL(TableSMSReport.CMD_CREATE_TABLE);
+
+        db.execSQL(TableCallTasks.CMD_CREATE_TABLE);
 
     }
 
