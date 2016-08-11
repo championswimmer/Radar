@@ -100,6 +100,7 @@ public class SmsSender {
         //TODO: Make unique using data instead of extra
         Intent msi = new Intent(ctx, smsSendServiceClass);
         msi.setAction(SmsSender.ACTION_SEND_SMS);
+        msi.setData(PhonytaleUri.createSendSMS(recipient, msgContent, interval));
         msi.putExtra(SmsSender.EXTRA_RECEPIENT, recipient);
         msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, msgContent);
 
@@ -128,6 +129,7 @@ public class SmsSender {
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
         Intent msi = new Intent(ctx, getSmsSendObserverClass());
+        msi.setData(PhonytaleUri.createSendSMS(recipient, msgContent, interval));
         msi.setAction(SmsSender.ACTION_SEND_SMS);
         msi.putExtra(SmsSender.EXTRA_RECEPIENT, recipient);
         msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, msgContent);

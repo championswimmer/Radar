@@ -18,13 +18,6 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Uri uri = Uri.parse("radar://sms/send?to=121&message=help me here&interval=1");
-        Log.d(TAG, "onCreate:getQuery " + uri.getQuery());
-        Log.d(TAG, "onCreate:getQueryParameter " + uri.getQueryParameter("to"));
-        Log.d(TAG, "onCreate:getQueryParameter " + uri.getQueryParameter("message"));
-        Log.d(TAG, "onCreate:getHost " + uri.getHost());
-        Log.d(TAG, "onCreate:getPath " + uri.getPath());
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
