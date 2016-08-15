@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import airtel.comviva.mahindra.radar.db.tables.TableCallTasks;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSReport;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSTasks;
+import airtel.comviva.mahindra.radar.db.tables.TableUSSDTasks;
 
 /**
  * Created by championswimmer on 10/8/16.
@@ -16,6 +17,28 @@ public class DbManager  extends SQLiteOpenHelper{
 
     public static final int DB_VER = 1;
     public static final String DB_NAME = "Radar.db";
+
+    private static SQLiteDatabase writeableDb;
+    private static SQLiteDatabase readableDb;
+
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        if (writeableDb == null) {
+            writeableDb = super.getWritableDatabase();
+        }
+
+        return writeableDb;
+    }
+
+    @Override
+    public SQLiteDatabase getReadableDatabase() {
+        if (readableDb == null) {
+            readableDb = super.getReadableDatabase();
+        }
+
+        return readableDb;
+    }
+
 
 
     public DbManager(Context context) {
@@ -33,6 +56,9 @@ public class DbManager  extends SQLiteOpenHelper{
         db.execSQL(TableSMSReport.CMD_CREATE_TABLE);
 
         db.execSQL(TableCallTasks.CMD_CREATE_TABLE);
+
+        db.execSQL(TableUSSDTasks.CMD_CREATE_TABLE);
+
 
     }
 

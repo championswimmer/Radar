@@ -61,7 +61,7 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
 
     @Override
     public void onDestroyView() {
-        db.close();
+
         super.onDestroyView();
     }
 

@@ -24,6 +24,7 @@ import airtel.comviva.mahindra.radar.fragment.BaseRadarFragment;
 import airtel.comviva.mahindra.radar.fragment.ShowCallTaskFragment;
 import airtel.comviva.mahindra.radar.fragment.ShowDataTaskFragment;
 import airtel.comviva.mahindra.radar.fragment.ShowSMSTaskFragment;
+import airtel.comviva.mahindra.radar.fragment.ShowUSSDTaskFragment;
 
 public class ShowTaskActivity extends AppCompatActivity {
 
@@ -52,7 +53,7 @@ public class ShowTaskActivity extends AppCompatActivity {
         showTaskFragments = new Fragment[]{
                 new ShowSMSTaskFragment(),
                 new ShowCallTaskFragment(),
-                new ShowSMSTaskFragment(),
+                new ShowUSSDTaskFragment(),
                 new ShowDataTaskFragment()
         };
 

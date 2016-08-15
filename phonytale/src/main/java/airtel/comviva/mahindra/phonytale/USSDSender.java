@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.util.Log;
 
 import airtel.comviva.mahindra.phonytale.services.USSDSendService;
 
@@ -20,6 +21,8 @@ public class USSDSender {
 
     public static void sendUSSD (String ussdCode, Context ctx) {
 
+        Log.d(TAG, "sendUSSD: ");
+
         Uri ussdUri = Uri.parse("tel:" + Uri.encode(ussdCode));
         Intent ussdIntent = new Intent();
         ussdIntent.setAction(Intent.ACTION_CALL);
@@ -33,10 +36,14 @@ public class USSDSender {
 
         Intent usi = new Intent(ctx, USSDSendService.class);
         usi.setAction(ACTION_SEND_USSD);
-        //usi.setData()
+        usi.setData(PhonytaleUri.createSendUSSD(ussdCode, interval));
+
+        Log.d(TAG, "createUSSDSendTask: usi = " + usi.toString());
 
 
         PendingIntent pi = PendingIntent.getService(ctx, 333, usi, 0);
+
+        Log.d(TAG, "createUSSDSendTask: pi = " + pi.toString());
 
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime(),

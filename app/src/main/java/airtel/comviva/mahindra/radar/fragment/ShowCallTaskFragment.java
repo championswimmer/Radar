@@ -84,7 +84,7 @@ public class ShowCallTaskFragment extends BaseRadarFragment {
 
     @Override
     public void onDestroyView() {
-        db.close();
+
         super.onDestroyView();
     }
 

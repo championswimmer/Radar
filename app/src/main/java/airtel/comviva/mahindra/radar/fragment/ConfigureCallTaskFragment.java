@@ -43,7 +43,7 @@ public class ConfigureCallTaskFragment extends BaseRadarFragment {
 
         etRecipient = (EditText) rootView.findViewById(R.id.et_recipient);
         etInterval = (EditText) rootView.findViewById(R.id.et_interval);
-        btnCreate = (Button) rootView.findViewById(R.id.btn_create_sms);
+        btnCreate = (Button) rootView.findViewById(R.id.btn_create_call_task);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
