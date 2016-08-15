@@ -54,7 +54,7 @@ public class ReportActivity extends AppCompatActivity {
                 new ReportSMSFragment(),
                 new ReportCallFragment(),
                 new ReportUSSDFragment(),
-                new ReportDataFragment(),
+                new ReportDataFragment()
         };
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -17,6 +17,7 @@ public class PhonytaleUri {
 
     public static final String QUERY_TO = "to";
     public static final String QUERY_MSG = "msg";
+    public static final String QUERY_USSD = "ussd";
     public static final String QUERY_INTERVAL = "interval";
 
     public static Uri createSendSMS(String recipient, String message, int interval) {

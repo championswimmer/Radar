@@ -51,8 +51,8 @@ public class ConfigureTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_configure_task);
         configureFragments = new Fragment[]{
                 new ConfigureSMSTaskFragment(),
-                new ConfigureCallTaskFragment(),
                 new ConfigureUSSDTaskFragment(),
+                new ConfigureCallTaskFragment(),
                 new ConfigureDataTaskFragment()
         };
 

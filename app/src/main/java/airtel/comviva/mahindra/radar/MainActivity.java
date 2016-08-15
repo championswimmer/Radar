@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        USSDSender.sendUSSD("*121#", this);
+//        USSDSender.sendUSSD("*121#", this);
 
     }
 

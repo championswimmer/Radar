@@ -122,6 +122,7 @@ public class SmsSender {
                 (interval * 60 * 1000),
                 pi
         );
+
     }
 
     public static void cancelSmsSendingTask(String recipient, String msgContent, int interval, Context ctx) {
@@ -157,5 +158,14 @@ public class SmsSender {
     public static void setSmsSendObserverClass(Class<? extends Service> smsSendObserverClass) {
         SmsSender.smsSendObserverClass = smsSendObserverClass;
         Log.d(TAG, "getSmsSendObserverClass: " + smsSendObserverClass.toString());
+
+        AAA a = new AAA();
+        Class klass = a.getClass();
+        Class clazz = AAA.class;
+
+    }
+
+    public static class AAA extends Object {
+
     }
 }
