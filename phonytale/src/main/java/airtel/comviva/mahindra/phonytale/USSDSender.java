@@ -36,7 +36,7 @@ public class USSDSender {
     public static void createUSSDSendTask(String ussdCode, int interval, Context ctx) {
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
-        Intent usi = new Intent(ctx, USSDSendService.class);
+        Intent usi = new Intent(ctx, getUssdSendServiceClass());
         usi.setAction(ACTION_SEND_USSD);
         usi.setData(PhonytaleUri.createSendUSSD(ussdCode, interval));
 

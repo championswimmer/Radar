@@ -2,6 +2,7 @@ package airtel.comviva.mahindra.phonytale.services;
 
 import android.app.Service;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -27,7 +28,7 @@ public abstract class USSDSendService extends Service {
         if (intent.getAction().equals(USSDSender.ACTION_SEND_USSD)) {
             Log.d(TAG, "onStartCommand: " + USSDSender.ACTION_SEND_USSD);
 
-            String ussdCode = intent.getData().getQueryParameter(PhonytaleUri.QUERY_TO);
+            String ussdCode = Uri.decode(intent.getData().getQueryParameter(PhonytaleUri.QUERY_TO));
 
             USSDSender.sendUSSD(
                     ussdCode,
