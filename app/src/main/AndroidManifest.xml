@@ -30,6 +30,10 @@
             android:enabled="true"
             android:exported="true" />
 
+        <service android:name=".services.RadarUSSDSendService"
+            android:exported="true"
+            android:enabled="true"/>
+
         <activity
             android:name=".activities.ConfigureTaskActivity"
             android:label="@string/title_activity_configure_task"

@@ -8,7 +8,7 @@ import android.util.Log;
 import airtel.comviva.mahindra.phonytale.PhonytaleUri;
 import airtel.comviva.mahindra.phonytale.USSDSender;
 
-public class USSDSendService extends Service {
+public abstract class USSDSendService extends Service {
 
     public static final String TAG = "USSDSend";
 
@@ -27,13 +27,18 @@ public class USSDSendService extends Service {
         if (intent.getAction().equals(USSDSender.ACTION_SEND_USSD)) {
             Log.d(TAG, "onStartCommand: " + USSDSender.ACTION_SEND_USSD);
 
+            String ussdCode = intent.getData().getQueryParameter(PhonytaleUri.QUERY_TO);
+
             USSDSender.sendUSSD(
-                    intent.getData().getQueryParameter(PhonytaleUri.QUERY_TO),
+                    ussdCode,
                     this
             );
+            onUSSDSend(ussdCode);
         }
 
 
         return super.onStartCommand(intent, flags, startId);
     }
+
+    public abstract void onUSSDSend(String ussdCode);
 }

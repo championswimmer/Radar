@@ -58,8 +58,7 @@ public class ConfigureSMSTaskFragment extends BaseRadarFragment {
                         recipient,
                         msgContent,
                         interval,
-                        getActivity(),
-                        RadarSmsSendService.class
+                        getActivity()
                 );
 
                 SQLiteDatabase db = new DbManager(getActivity()).getWritableDatabase();

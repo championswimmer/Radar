@@ -17,6 +17,8 @@ public class USSDSender {
 
     public static final String TAG = "USSDSender";
 
+    private static Class<? extends USSDSendService> ussdSendServiceClass;
+
     public static final String ACTION_SEND_USSD = "airtel.comviva.mahindra.phonytale.ACTION_SEND_USSD";
 
     public static void sendUSSD (String ussdCode, Context ctx) {
@@ -57,7 +59,7 @@ public class USSDSender {
 
         Intent usi = new Intent(ctx, USSDSendService.class);
         usi.setAction(ACTION_SEND_USSD);
-        //usi.setData()
+        usi.setData(PhonytaleUri.createSendUSSD(ussdCode, interval));
 
 
         PendingIntent pi = PendingIntent.getService(ctx, 333, usi, 0);
@@ -66,4 +68,14 @@ public class USSDSender {
 
     }
 
+    public static Class<? extends USSDSendService> getUssdSendServiceClass() {
+        if (ussdSendServiceClass == null) {
+            return USSDSendService.class;
+        }
+        return ussdSendServiceClass;
+    }
+
+    public static void setUssdSendServiceClass(Class<? extends USSDSendService> ussdSendServiceClass) {
+        USSDSender.ussdSendServiceClass = ussdSendServiceClass;
+    }
 }

@@ -91,14 +91,12 @@ public class SmsSender {
         return reqCode;
     }
 
-    public static void createSmsSendingTask(String recipient, String msgContent, int interval, Context ctx,
-                                            Class<? extends SmsSendService> smsSendServiceClass) {
+    public static void createSmsSendingTask(String recipient, String msgContent, int interval, Context ctx) {
         Log.d(TAG, "createSmsSendingTask: ");
-        setSmsSendObserverClass(smsSendServiceClass);
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
         //TODO: Make unique using data instead of extra
-        Intent msi = new Intent(ctx, smsSendServiceClass);
+        Intent msi = new Intent(ctx, getSmsSendObserverClass());
         msi.setAction(SmsSender.ACTION_SEND_SMS);
         msi.setData(PhonytaleUri.createSendSMS(recipient, msgContent, interval));
         msi.putExtra(SmsSender.EXTRA_RECEPIENT, recipient);
@@ -152,16 +150,15 @@ public class SmsSender {
 
     public static Class<? extends Service> getSmsSendObserverClass() {
         Log.d(TAG, "getSmsSendObserverClass: " + smsSendObserverClass.toString());
+        if (smsSendObserverClass == null) {
+            return SmsSendService.class;
+        }
         return smsSendObserverClass;
     }
 
     public static void setSmsSendObserverClass(Class<? extends Service> smsSendObserverClass) {
         SmsSender.smsSendObserverClass = smsSendObserverClass;
         Log.d(TAG, "getSmsSendObserverClass: " + smsSendObserverClass.toString());
-
-        AAA a = new AAA();
-        Class klass = a.getClass();
-        Class clazz = AAA.class;
 
     }
 
