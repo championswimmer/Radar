@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import airtel.comviva.mahindra.radar.R;
 import airtel.comviva.mahindra.radar.db.DbManager;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSTasks;
 import airtel.comviva.mahindra.radar.models.SMSTask;
+import airtel.comviva.mahindra.radar.services.RadarSmsSendService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,6 +88,7 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
 
         public TextView tvRecipient, tvInterval, tvMessage;
         public View itemView;
+        Button btnCancel, btnDoNow;
 
         public SmsTaskHolder(View itemView) {
             super(itemView);
@@ -93,6 +96,8 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
             tvRecipient = (TextView) itemView.findViewById(R.id.tv_recipient);
             tvInterval = (TextView) itemView.findViewById(R.id.tv_interval);
             tvMessage = (TextView) itemView.findViewById(R.id.tv_msg_content);
+            btnCancel = (Button) itemView.findViewById(R.id.btn_cancel_task);
+            btnDoNow = (Button) itemView.findViewById(R.id.btn_do_task);
             this.itemView = itemView;
         }
 
@@ -115,7 +120,7 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
             holder.tvInterval.setText(String.valueOf(smsTasks.get(position).getInterval()));
             holder.tvRecipient.setText(smsTasks.get(position).getRecipient());
             holder.tvMessage.setText(smsTasks.get(position).getMessage());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(getActivity())
@@ -142,6 +147,17 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
                                 }
                             })
                             .show();
+                }
+            });
+            holder.btnDoNow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SmsSender.sendSms(
+                            smsTasks.get(holder.getAdapterPosition()).getRecipient(),
+                            smsTasks.get(holder.getAdapterPosition()).getMessage(),
+                            RadarSmsSendService.class,
+                            getActivity()
+                    );
                 }
             });
 

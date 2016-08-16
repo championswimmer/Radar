@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,12 +60,15 @@ public class ShowUSSDTaskFragment extends BaseRadarFragment {
 
         public TextView tvRecipient, tvInterval;
         public View itemView;
+        Button btnCancel, btnDoNow;
 
         public USSDTaskHolder(View itemView) {
             super(itemView);
 
             tvRecipient = (TextView) itemView.findViewById(R.id.tv_recipient);
             tvInterval = (TextView) itemView.findViewById(R.id.tv_interval);
+            btnCancel = (Button) itemView.findViewById(R.id.btn_cancel_task);
+            btnDoNow = (Button) itemView.findViewById(R.id.btn_do_task);
             this.itemView = itemView;
         }
 
@@ -105,7 +109,7 @@ public class ShowUSSDTaskFragment extends BaseRadarFragment {
 
             holder.tvInterval.setText(String.valueOf(ussdTasks.get(position).getInterval()));
             holder.tvRecipient.setText(ussdTasks.get(position).getRecipient());
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(getActivity())
@@ -131,6 +135,15 @@ public class ShowUSSDTaskFragment extends BaseRadarFragment {
                                 }
                             })
                             .show();
+                }
+            });
+            holder.btnDoNow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    USSDSender.sendUSSD(
+                            ussdTasks.get(holder.getAdapterPosition()).getRecipient(),
+                            getActivity()
+                    );
                 }
             });
 
