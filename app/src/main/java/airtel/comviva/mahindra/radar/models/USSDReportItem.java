@@ -6,7 +6,7 @@ package airtel.comviva.mahindra.radar.models;
 public class USSDReportItem {
 
     String ussdCode;
-    long timeStamp;
+    Long timeStamp;
 
 
     public USSDReportItem(String ussdCode, long timeStamp) {

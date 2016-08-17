@@ -43,7 +43,7 @@ public class TableUSSDReport {
                     + Columns.TIMESTAMP + TYPE_INTEGER
                     + RBR + SEMICOLON;
 
-    public static int addNew(SQLiteDatabase db, int ussdId, String recipient, long timestamp) {
+    public static int addNew(SQLiteDatabase db, int ussdId, String recipient,  Long timestamp) {
         ContentValues cv = new ContentValues();
         cv.put(Columns.ID, ussdId);
         cv.put(Columns.RECIPIENT, recipient);
@@ -68,7 +68,7 @@ public class TableUSSDReport {
         while (c.moveToNext()) {
             ussdReports.add(new USSDReportItem(
                     c.getString(c.getColumnIndexOrThrow(Columns.RECIPIENT)),
-                    c.getInt(c.getColumnIndexOrThrow(Columns.TIMESTAMP))
+                    c.getLong(c.getColumnIndexOrThrow(Columns.TIMESTAMP))
             ));
         }
 
