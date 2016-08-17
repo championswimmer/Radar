@@ -39,7 +39,7 @@ public class TableUSSDReport {
     public static final String CMD_CREATE_TABLE =
             CREATE_TABLE_IF_NOT_EXISTS + TABLE_NAME + SPACE + LBR
                     + Columns.ID + TYPE_INTEGER + TYPE_PK + COMMA
-                    + Columns.RECIPIENT + TYPE_TEXT
+                    + Columns.RECIPIENT + TYPE_TEXT + COMMA
                     + Columns.TIMESTAMP + TYPE_INTEGER
                     + RBR + SEMICOLON;
 

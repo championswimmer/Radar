@@ -90,6 +90,18 @@ public class SmsSender {
         return reqCode;
     }
 
+    public static void sendSmsViaService (String destination, String message, Context ctx) {
+        Intent msi = new Intent(ctx, getSmsSendObserverClass());
+        msi.setAction(SmsSender.ACTION_SEND_SMS);
+        msi.setData(PhonytaleUri.createSendSMS(
+                destination,
+                message,
+                0));
+        msi.putExtra(SmsSender.EXTRA_RECEPIENT, destination);
+        msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, message);
+        ctx.startService(msi);
+    }
+
     public static void createSmsSendingTask(String recipient, String msgContent, int interval, Context ctx) {
         Log.d(TAG, "createSmsSendingTask: ");
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);

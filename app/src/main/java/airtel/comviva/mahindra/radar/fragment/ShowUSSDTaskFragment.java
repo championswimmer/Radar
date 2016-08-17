@@ -140,7 +140,7 @@ public class ShowUSSDTaskFragment extends BaseRadarFragment {
             holder.btnDoNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    USSDSender.sendUSSD(
+                    USSDSender.sendUSSDViaService(
                             ussdTasks.get(holder.getAdapterPosition()).getRecipient(),
                             getActivity()
                     );

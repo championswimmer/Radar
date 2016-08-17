@@ -33,6 +33,14 @@ public class USSDSender {
         ctx.startActivity(ussdIntent);
     }
 
+    public static void sendUSSDViaService(String ussdCode, Context ctx) {
+        Intent usi = new Intent(ctx, getUssdSendServiceClass());
+        usi.setAction(ACTION_SEND_USSD);
+        usi.setData(PhonytaleUri.createSendUSSD(ussdCode, 0));
+
+        ctx.startService(usi);
+    }
+
     public static void createUSSDSendTask(String ussdCode, int interval, Context ctx) {
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 

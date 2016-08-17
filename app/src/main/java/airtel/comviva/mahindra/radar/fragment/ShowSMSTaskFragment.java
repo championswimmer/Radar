@@ -2,6 +2,7 @@ package airtel.comviva.mahindra.radar.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import in.championswimmer.phonytale.PhonytaleUri;
 import in.championswimmer.phonytale.SmsSender;
 import airtel.comviva.mahindra.radar.R;
 import airtel.comviva.mahindra.radar.db.DbManager;
@@ -151,12 +153,13 @@ public class ShowSMSTaskFragment extends BaseRadarFragment {
             holder.btnDoNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SmsSender.sendSms(
+
+                    SmsSender.sendSmsViaService(
                             smsTasks.get(holder.getAdapterPosition()).getRecipient(),
                             smsTasks.get(holder.getAdapterPosition()).getMessage(),
-                            RadarSmsSendService.class,
                             getActivity()
                     );
+
                 }
             });
 

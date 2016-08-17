@@ -27,6 +27,17 @@ public class Caller {
         ctx.startActivity(dialIntent);
     }
 
+    public static void makeCallViaService(String phonenumber, Context ctx) {
+        Intent oci = new Intent(ctx, OutgoingCallService.class);
+        oci.setAction(Caller.ACTION_PLACE_CALL);
+        oci.setData(PhonytaleUri.createOutgoingCall(
+                phonenumber,
+                0));
+
+        ctx.startService(oci);
+
+    }
+
     public static void createCallingTask(String phoneNumber, int interval, Context ctx) {
         Log.d(TAG, "createCallingTask: ");
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);

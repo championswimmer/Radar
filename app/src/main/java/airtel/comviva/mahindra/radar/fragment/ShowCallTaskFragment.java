@@ -2,6 +2,7 @@ package airtel.comviva.mahindra.radar.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,8 @@ import airtel.comviva.mahindra.radar.R;
 import airtel.comviva.mahindra.radar.db.DbManager;
 import airtel.comviva.mahindra.radar.db.tables.TableCallTasks;
 import airtel.comviva.mahindra.radar.models.CallTask;
+import in.championswimmer.phonytale.PhonytaleUri;
+import in.championswimmer.phonytale.services.OutgoingCallService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -144,10 +147,9 @@ public class ShowCallTaskFragment extends BaseRadarFragment {
             holder.btnDoNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Caller.makeCall(
+                    Caller.makeCallViaService(
                             callTasks.get(holder.getAdapterPosition()).getRecipient(),
-                            getActivity()
-                    );
+                            getActivity());
                 }
             });
 

@@ -4,7 +4,9 @@ package airtel.comviva.mahindra.radar.fragment;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import airtel.comviva.mahindra.radar.R;
+import airtel.comviva.mahindra.radar.db.DbManager;
+import airtel.comviva.mahindra.radar.db.tables.TableSMSReport;
 import airtel.comviva.mahindra.radar.db.tables.TableUSSDReport;
 import airtel.comviva.mahindra.radar.models.USSDReportItem;
 
@@ -25,7 +29,7 @@ public class ReportUSSDFragment extends BaseRadarFragment {
     public static final String TAG = "ReportUSSD";
 
 
-    RecyclerView smsReportRecyclerView;
+    RecyclerView ussdReportRecyclerView;
     ArrayList<USSDReportItem> ussdReports;
     SQLiteDatabase db;
     USSDReportAdapter urAdapter;
@@ -38,7 +42,17 @@ public class ReportUSSDFragment extends BaseRadarFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_report_ussd, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_report_ussd, container, false);
+        db = (new DbManager(getActivity())).getReadableDatabase();
+
+        ussdReportRecyclerView = (RecyclerView) rootView.findViewById(R.id.ussd_report_list);
+        ussdReports = TableUSSDReport.getAllReports(db);
+
+        urAdapter = new USSDReportAdapter();
+        ussdReportRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ussdReportRecyclerView.setAdapter(urAdapter);
+
+        return rootView;
     }
 
     @Override
@@ -69,8 +83,8 @@ public class ReportUSSDFragment extends BaseRadarFragment {
         public USSDReportHolder(View itemView) {
             super(itemView);
 
-            tvUSSDCode = (TextView) itemView.findViewById(R.id.tv_recipient);
-            tvTimestamp = (TextView) itemView.findViewById(R.id.tv_msg_id);
+            tvUSSDCode = (TextView) itemView.findViewById(R.id.tv_ussd_code);
+            tvTimestamp = (TextView) itemView.findViewById(R.id.tv_timestamp);
             this.itemView = itemView;
         }
 
@@ -91,6 +105,7 @@ public class ReportUSSDFragment extends BaseRadarFragment {
         public void onBindViewHolder(USSDReportHolder holder, int position) {
 
             holder.tvUSSDCode.setText(ussdReports.get(position).getUssdCode());
+            Log.d(TAG, "onBindViewHolder: " + ussdReports.get(position).getTimeStamp());
             holder.tvTimestamp.setText(String.valueOf(ussdReports.get(position).getTimeStamp()));
 
         }

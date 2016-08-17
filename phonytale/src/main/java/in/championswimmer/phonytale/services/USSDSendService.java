@@ -25,6 +25,10 @@ public abstract class USSDSendService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        if (intent == null) {
+            return 0;
+        }
+
         if (intent.getAction().equals(USSDSender.ACTION_SEND_USSD)) {
             Log.d(TAG, "onStartCommand: " + USSDSender.ACTION_SEND_USSD);
 
