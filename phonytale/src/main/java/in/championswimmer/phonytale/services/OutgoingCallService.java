@@ -1,4 +1,4 @@
-package airtel.comviva.mahindra.phonytale.services;
+package in.championswimmer.phonytale.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -9,8 +9,8 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import airtel.comviva.mahindra.phonytale.Caller;
-import airtel.comviva.mahindra.phonytale.PhonytaleUri;
+import in.championswimmer.phonytale.Caller;
+import in.championswimmer.phonytale.PhonytaleUri;
 
 /**
  * Created by championswimmer on 11/08/16.

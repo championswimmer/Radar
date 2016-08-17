@@ -1,4 +1,4 @@
-package airtel.comviva.mahindra.phonytale.services;
+package in.championswimmer.phonytale.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
-import airtel.comviva.mahindra.phonytale.PhonytaleUri;
-import airtel.comviva.mahindra.phonytale.USSDSender;
+import in.championswimmer.phonytale.PhonytaleUri;
+import in.championswimmer.phonytale.USSDSender;
 
 public abstract class USSDSendService extends Service {
 

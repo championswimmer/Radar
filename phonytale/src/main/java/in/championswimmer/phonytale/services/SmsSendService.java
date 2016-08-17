@@ -1,4 +1,4 @@
-package airtel.comviva.mahindra.phonytale.services;
+package in.championswimmer.phonytale.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import airtel.comviva.mahindra.phonytale.SmsSender;
+import in.championswimmer.phonytale.SmsSender;
 
 /**
  * Created by championswimmer on 10/8/16.

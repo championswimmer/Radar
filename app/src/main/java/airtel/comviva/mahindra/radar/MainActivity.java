@@ -1,9 +1,7 @@
 package airtel.comviva.mahindra.radar;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageItemInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -17,13 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import airtel.comviva.mahindra.phonytale.Caller;
-import airtel.comviva.mahindra.phonytale.SmsSender;
-import airtel.comviva.mahindra.phonytale.USSDSender;
 import airtel.comviva.mahindra.radar.activities.ConfigureTaskActivity;
 import airtel.comviva.mahindra.radar.activities.ReportActivity;
 import airtel.comviva.mahindra.radar.activities.ShowTaskActivity;
-import airtel.comviva.mahindra.radar.services.RadarSmsSendService;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -11,11 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import airtel.comviva.mahindra.phonytale.Caller;
-import airtel.comviva.mahindra.phonytale.USSDSender;
+import in.championswimmer.phonytale.USSDSender;
 import airtel.comviva.mahindra.radar.R;
 import airtel.comviva.mahindra.radar.db.DbManager;
-import airtel.comviva.mahindra.radar.db.tables.TableCallTasks;
 import airtel.comviva.mahindra.radar.db.tables.TableUSSDTasks;
 
 /**

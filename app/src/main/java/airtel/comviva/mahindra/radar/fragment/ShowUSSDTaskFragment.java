@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import airtel.comviva.mahindra.phonytale.USSDSender;
+import in.championswimmer.phonytale.USSDSender;
 import airtel.comviva.mahindra.radar.R;
 import airtel.comviva.mahindra.radar.db.DbManager;
 import airtel.comviva.mahindra.radar.db.tables.TableUSSDTasks;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="airtel.comviva.mahindra.phonytale">
+    package="in.championswimmer.phonytale">
 
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -37,10 +37,7 @@
             android:name=".services.OutgoingCallService"
             android:enabled="true"
             android:exported="true" />
-        <service
-            android:name=".services.USSDSendService"
-            android:enabled="true"
-            android:exported="true"></service>
+
     </application>
 
 </manifest>

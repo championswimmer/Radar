@@ -2,8 +2,8 @@ package airtel.comviva.mahindra.radar;
 
 import android.app.Application;
 
-import airtel.comviva.mahindra.phonytale.SmsSender;
-import airtel.comviva.mahindra.phonytale.USSDSender;
+import in.championswimmer.phonytale.SmsSender;
+import in.championswimmer.phonytale.USSDSender;
 import airtel.comviva.mahindra.radar.services.RadarSmsSendService;
 import airtel.comviva.mahindra.radar.services.RadarUSSDSendService;
 

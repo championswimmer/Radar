@@ -1,4 +1,4 @@
-package airtel.comviva.mahindra.phonytale;
+package in.championswimmer.phonytale;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
 
-import airtel.comviva.mahindra.phonytale.services.OutgoingCallService;
+import in.championswimmer.phonytale.services.OutgoingCallService;
 
 /**
  * Created by championswimmer on 11/08/16.

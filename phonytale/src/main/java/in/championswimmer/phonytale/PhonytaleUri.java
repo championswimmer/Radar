@@ -1,4 +1,4 @@
-package airtel.comviva.mahindra.phonytale;
+package in.championswimmer.phonytale;
 
 import android.net.Uri;
 

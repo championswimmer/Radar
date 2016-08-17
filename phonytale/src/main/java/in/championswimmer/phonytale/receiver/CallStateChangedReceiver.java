@@ -1,4 +1,4 @@
-package airtel.comviva.mahindra.phonytale.receiver;
+package in.championswimmer.phonytale.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

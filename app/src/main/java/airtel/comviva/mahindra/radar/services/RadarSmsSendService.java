@@ -1,12 +1,8 @@
 package airtel.comviva.mahindra.radar.services;
 
-import android.app.Service;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 
-import airtel.comviva.mahindra.phonytale.services.SmsSendService;
+import in.championswimmer.phonytale.services.SmsSendService;
 import airtel.comviva.mahindra.radar.db.DbManager;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSReport;
 import airtel.comviva.mahindra.radar.models.SMSReportItem;
