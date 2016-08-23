@@ -1,5 +1,7 @@
 package airtel.comviva.mahindra.radar.models;
 
+import java.util.List;
+
 /**
  * Created by championswimmer on 11/8/16.
  */
@@ -8,10 +10,22 @@ public class SMSReportItem {
     public static final int STATUS_SENDING = 0;
     public static final int STATUS_SENT = 1;
     public static final int STATUS_DELIVERED = 2;
+    public static final int STATUS_RESP_RECVD = 3;
+    public static final int STATUS_RESP_FAILED = 4;
 
 
     String recipient;
     String message;
+
+    public List<String> getResponseMessages() {
+        return responseMessages;
+    }
+
+    public void setResponseMessages(List<String> responseMessages) {
+        this.responseMessages = responseMessages;
+    }
+
+    List<String> responseMessages;
     int smsId;
     int status;
 
@@ -96,6 +110,10 @@ public class SMSReportItem {
                 return "SENT";
             case STATUS_SENDING:
                 return "SENDING";
+            case STATUS_RESP_RECVD:
+                return "SLA_PASSED";
+            case STATUS_RESP_FAILED:
+                return "SLA_FAILED";
         }
         return "";
     }

@@ -15,14 +15,7 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <receiver
-            android:name=".receiver.SmsReceivedReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
+
         <receiver
             android:name=".receiver.CallStateChangedReceiver"
             android:enabled="true"
