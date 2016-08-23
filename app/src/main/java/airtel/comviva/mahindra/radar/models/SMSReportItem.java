@@ -32,6 +32,7 @@ public class SMSReportItem {
     long sendTime;
     long sentTime;
     long deliveredTime;
+    long receivedTime;
 
     public SMSReportItem(String recipient, String message, int smsId, int status) {
         this.recipient = recipient;
@@ -40,7 +41,9 @@ public class SMSReportItem {
         this.status = status;
     }
 
-    public SMSReportItem(String recipient, String message, int smsId, int status, long sendTime, long sentTime, long deliveredTime) {
+    public SMSReportItem(String recipient, String message, int smsId,
+                         int status, long sendTime, long sentTime,
+                         long deliveredTime, long receivedTime) {
         this.recipient = recipient;
         this.message = message;
         this.smsId = smsId;
@@ -48,6 +51,15 @@ public class SMSReportItem {
         this.sendTime = sendTime;
         this.sentTime = sentTime;
         this.deliveredTime = deliveredTime;
+        this.receivedTime = receivedTime;
+    }
+
+    public long getReceivedTime() {
+        return receivedTime;
+    }
+
+    public void setReceivedTime(long receivedTime) {
+        this.receivedTime = receivedTime;
     }
 
     public long getSendTime() {

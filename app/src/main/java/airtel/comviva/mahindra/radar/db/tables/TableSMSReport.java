@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -26,11 +27,13 @@ public class TableSMSReport {
         String SEND_TIMESTAMP = "send_timestamp";
         String SENT_TIMESTAMP = "sent_timestamp";
         String DELIVERED_TIMESTAMP = "delivered_timestamp";
+        String RECEIVED_TIMESTAMP = "received_timestamp";
     }
 
     public static String[] FULL_PROJECTION = {
             Columns.ID, Columns.STATUS, Columns.RECIPIENT, Columns.MESSAGE,
-            Columns.SEND_TIMESTAMP, Columns.SENT_TIMESTAMP, Columns.DELIVERED_TIMESTAMP
+            Columns.SEND_TIMESTAMP, Columns.SENT_TIMESTAMP, Columns.DELIVERED_TIMESTAMP,
+            Columns.RECEIVED_TIMESTAMP
     };
 
     public static final String CMD_CREATE_TABLE =
@@ -41,6 +44,7 @@ public class TableSMSReport {
                     + Columns.SEND_TIMESTAMP + TYPE_INTEGER + COMMA
                     + Columns.SENT_TIMESTAMP + TYPE_INTEGER + COMMA
                     + Columns.DELIVERED_TIMESTAMP + TYPE_INTEGER + COMMA
+                    + Columns.RECEIVED_TIMESTAMP + TYPE_INTEGER + COMMA
                     + Columns.RECIPIENT + TYPE_TEXT
                     + RBR + SEMICOLON;
 
@@ -56,7 +60,7 @@ public class TableSMSReport {
 
     }
 
-    public static void updateStatus(SQLiteDatabase db, int status, int id) {
+    public static void updateStatus(SQLiteDatabase db, int status, int id, @Nullable String respMsg) {
         ContentValues cv = new ContentValues();
         cv.put(Columns.STATUS, status);
         switch (status) {
@@ -66,8 +70,34 @@ public class TableSMSReport {
             case SMSReportItem.STATUS_DELIVERED:
                 cv.put(Columns.DELIVERED_TIMESTAMP, System.currentTimeMillis());
                 break;
+            case SMSReportItem.STATUS_RESP_RECVD:
+                cv.put(Columns.RECEIVED_TIMESTAMP, System.currentTimeMillis());
+                break;
         }
         db.update(TABLE_NAME, cv, Columns.ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    public static ArrayList<SMSReportItem> getAllByStatus(SQLiteDatabase db, int status) {
+        Cursor c = db.query(TABLE_NAME,
+                FULL_PROJECTION, Columns.STATUS + " = ?", new String[]{String.valueOf(status)},
+                null, null, Columns.ID + " DESC");
+        ArrayList<SMSReportItem> smsReports = new ArrayList<>();
+
+        while (c.moveToNext()) {
+            smsReports.add(new SMSReportItem(
+                    c.getString(c.getColumnIndexOrThrow(Columns.RECIPIENT)),
+                    c.getString(c.getColumnIndexOrThrow(Columns.MESSAGE)),
+                    c.getInt(c.getColumnIndexOrThrow(Columns.ID)),
+                    c.getInt(c.getColumnIndexOrThrow(Columns.STATUS)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.SEND_TIMESTAMP)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.SENT_TIMESTAMP)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.DELIVERED_TIMESTAMP)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.RECEIVED_TIMESTAMP))
+
+            ));
+        }
+
+        return smsReports;
     }
 
     public static ArrayList<SMSReportItem> getAllReports(SQLiteDatabase db) {
@@ -84,7 +114,9 @@ public class TableSMSReport {
                     c.getInt(c.getColumnIndexOrThrow(Columns.STATUS)),
                     c.getLong(c.getColumnIndexOrThrow(Columns.SEND_TIMESTAMP)),
                     c.getLong(c.getColumnIndexOrThrow(Columns.SENT_TIMESTAMP)),
-                    c.getLong(c.getColumnIndexOrThrow(Columns.DELIVERED_TIMESTAMP))
+                    c.getLong(c.getColumnIndexOrThrow(Columns.DELIVERED_TIMESTAMP)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.RECEIVED_TIMESTAMP))
+
             ));
         }
 

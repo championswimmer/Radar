@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import in.championswimmer.phonytale.PhonytaleUri;
 import in.championswimmer.phonytale.SmsSender;
 
 /**
@@ -51,7 +52,8 @@ public abstract class SmsSendService extends Service {
                 onSmsSending(
                         intent.getStringExtra(SmsSender.EXTRA_RECEPIENT),
                         intent.getStringExtra(SmsSender.EXTRA_SMS_CONTENT),
-                        smsId
+                        smsId,
+                        Integer.valueOf(intent.getData().getQueryParameter(PhonytaleUri.QUERY_INTERVAL))
                 );
 
             }
@@ -80,7 +82,7 @@ public abstract class SmsSendService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    public abstract void onSmsSending(String recipient, String message, int smsId);
+    public abstract void onSmsSending(String recipient, String message, int smsId, int interval);
     public abstract void onSmsSent(String recipient, String message, int smsId);
     public abstract void onSmsDelivered(String recipient, String message, int smsId);
 }
