@@ -81,6 +81,7 @@ public class ReportSMSFragment extends BaseRadarFragment {
     public class SMSReportHolder extends RecyclerView.ViewHolder {
 
         public TextView tvRecipient, tvStatus, tvMessage, tvMsgid;
+        public TextView tvSendTime, tvDeliverTime;
         public View itemView;
 
         public SMSReportHolder(View itemView) {
@@ -90,6 +91,9 @@ public class ReportSMSFragment extends BaseRadarFragment {
             tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
             tvMessage = (TextView) itemView.findViewById(R.id.tv_msg_content);
             tvMsgid = (TextView) itemView.findViewById(R.id.tv_msg_id);
+
+            tvSendTime = (TextView) itemView.findViewById(R.id.tv_sending_time);
+            tvDeliverTime = (TextView) itemView.findViewById(R.id.tv_delivering_time);
             this.itemView = itemView;
         }
 
@@ -108,11 +112,24 @@ public class ReportSMSFragment extends BaseRadarFragment {
 
         @Override
         public void onBindViewHolder(SMSReportHolder holder, int position) {
+            SMSReportItem smsReport = smsReports.get(position);
 
-            holder.tvStatus.setText(smsReports.get(position).getStatusString());
-            holder.tvRecipient.setText(smsReports.get(position).getRecipient());
-            holder.tvMessage.setText(smsReports.get(position).getMessage());
-            holder.tvMsgid.setText(String.valueOf(smsReports.get(position).getSmsId()));
+            holder.tvStatus.setText(smsReport.getStatusString());
+            holder.tvRecipient.setText(smsReport.getRecipient());
+            holder.tvMessage.setText(smsReport.getMessage());
+            holder.tvMsgid.setText(String.valueOf(smsReport.getSmsId()));
+
+            if (smsReport.getStatus() == SMSReportItem.STATUS_SENT) {
+                int sendTime = (int) (smsReport.getSentTime() - smsReport.getSendTime());
+                holder.tvSendTime.setText(String.valueOf(sendTime) + "ms");
+            }
+
+            if (smsReport.getStatus() == SMSReportItem.STATUS_DELIVERED) {
+                int sendTime = (int) (smsReport.getSentTime() - smsReport.getSendTime());
+                holder.tvSendTime.setText(String.valueOf(sendTime) + "ms");
+                int deliverTime = (int) (smsReport.getDeliveredTime() - smsReport.getSentTime());
+                holder.tvDeliverTime.setText(String.valueOf(deliverTime) + "ms");
+            }
 
         }
 

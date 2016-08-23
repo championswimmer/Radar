@@ -15,11 +15,49 @@ public class SMSReportItem {
     int smsId;
     int status;
 
+    long sendTime;
+    long sentTime;
+    long deliveredTime;
+
     public SMSReportItem(String recipient, String message, int smsId, int status) {
         this.recipient = recipient;
         this.message = message;
         this.smsId = smsId;
         this.status = status;
+    }
+
+    public SMSReportItem(String recipient, String message, int smsId, int status, long sendTime, long sentTime, long deliveredTime) {
+        this.recipient = recipient;
+        this.message = message;
+        this.smsId = smsId;
+        this.status = status;
+        this.sendTime = sendTime;
+        this.sentTime = sentTime;
+        this.deliveredTime = deliveredTime;
+    }
+
+    public long getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(long sendTime) {
+        this.sendTime = sendTime;
+    }
+
+    public long getSentTime() {
+        return sentTime;
+    }
+
+    public void setSentTime(long sentTime) {
+        this.sentTime = sentTime;
+    }
+
+    public long getDeliveredTime() {
+        return deliveredTime;
+    }
+
+    public void setDeliveredTime(long deliveredTime) {
+        this.deliveredTime = deliveredTime;
     }
 
     public String getRecipient() {

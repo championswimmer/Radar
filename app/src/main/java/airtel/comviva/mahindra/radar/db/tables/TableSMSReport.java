@@ -3,6 +3,7 @@ package airtel.comviva.mahindra.radar.db.tables;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.SystemClock;
 
 import java.util.ArrayList;
 
@@ -22,10 +23,14 @@ public class TableSMSReport {
         String STATUS = "status";
         String RECIPIENT = "recipient";
         String MESSAGE = "message";
+        String SEND_TIMESTAMP = "send_timestamp";
+        String SENT_TIMESTAMP = "sent_timestamp";
+        String DELIVERED_TIMESTAMP = "delivered_timestamp";
     }
 
     public static String[] FULL_PROJECTION = {
-            Columns.ID, Columns.STATUS, Columns.RECIPIENT, Columns.MESSAGE
+            Columns.ID, Columns.STATUS, Columns.RECIPIENT, Columns.MESSAGE,
+            Columns.SEND_TIMESTAMP, Columns.SENT_TIMESTAMP, Columns.DELIVERED_TIMESTAMP
     };
 
     public static final String CMD_CREATE_TABLE =
@@ -33,6 +38,9 @@ public class TableSMSReport {
                     + Columns.ID + TYPE_INTEGER + TYPE_PK + COMMA
                     + Columns.STATUS + TYPE_INTEGER + COMMA
                     + Columns.MESSAGE + TYPE_TEXT + COMMA
+                    + Columns.SEND_TIMESTAMP + TYPE_INTEGER + COMMA
+                    + Columns.SENT_TIMESTAMP + TYPE_INTEGER + COMMA
+                    + Columns.DELIVERED_TIMESTAMP + TYPE_INTEGER + COMMA
                     + Columns.RECIPIENT + TYPE_TEXT
                     + RBR + SEMICOLON;
 
@@ -42,6 +50,7 @@ public class TableSMSReport {
         cv.put(Columns.STATUS, status);
         cv.put(Columns.RECIPIENT, recipient);
         cv.put(Columns.MESSAGE, message);
+        cv.put(Columns.SEND_TIMESTAMP, System.currentTimeMillis());
 
         return (int) db.insert(TABLE_NAME, null, cv);
 
@@ -50,6 +59,14 @@ public class TableSMSReport {
     public static void updateStatus(SQLiteDatabase db, int status, int id) {
         ContentValues cv = new ContentValues();
         cv.put(Columns.STATUS, status);
+        switch (status) {
+            case SMSReportItem.STATUS_SENT:
+                cv.put(Columns.SENT_TIMESTAMP, System.currentTimeMillis());
+                break;
+            case SMSReportItem.STATUS_DELIVERED:
+                cv.put(Columns.DELIVERED_TIMESTAMP, System.currentTimeMillis());
+                break;
+        }
         db.update(TABLE_NAME, cv, Columns.ID + " = ?", new String[]{String.valueOf(id)});
     }
 
@@ -64,7 +81,10 @@ public class TableSMSReport {
                     c.getString(c.getColumnIndexOrThrow(Columns.RECIPIENT)),
                     c.getString(c.getColumnIndexOrThrow(Columns.MESSAGE)),
                     c.getInt(c.getColumnIndexOrThrow(Columns.ID)),
-                    c.getInt(c.getColumnIndexOrThrow(Columns.STATUS))
+                    c.getInt(c.getColumnIndexOrThrow(Columns.STATUS)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.SEND_TIMESTAMP)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.SENT_TIMESTAMP)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.DELIVERED_TIMESTAMP))
             ));
         }
 

@@ -20,7 +20,7 @@ public class OutgoingCallService extends Service {
     public static final String TAG = "OutgoingCall";
 
     TelephonyManager tm;
-    PhoneStateListener psm;
+    static PhoneStateListener psm = null;
 
     @Nullable
     @Override
@@ -35,10 +35,16 @@ public class OutgoingCallService extends Service {
             return 0;
         }
 
+
+
         if (intent.getAction().equals(Caller.ACTION_PLACE_CALL)) {
             Log.d(TAG, "onStartCommand: ");
 
             tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            if (psm != null) {
+                tm.listen(psm, PhoneStateListener.LISTEN_NONE);
+
+            }
             psm = new PhoneStateListener(){
                 @Override
                 public void onCallStateChanged(int state, String incomingNumber) {
@@ -56,16 +62,16 @@ public class OutgoingCallService extends Service {
                 }
             };
 
-            tm.listen(psm, PhoneStateListener.LISTEN_CALL_STATE);
 
             String toPhone = intent.getData().getQueryParameter(PhonytaleUri.QUERY_TO);
-
             Caller.makeCall(toPhone, this);
+            tm.listen(psm, PhoneStateListener.LISTEN_CALL_STATE);
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     tm.listen(psm, PhoneStateListener.LISTEN_NONE);
+                    psm = null;
                 }
             }, 60000);
         }
