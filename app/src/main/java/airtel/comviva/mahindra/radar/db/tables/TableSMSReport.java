@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 
 import airtel.comviva.mahindra.radar.models.SMSReportItem;
+import in.championswimmer.phonytale.SmsSender;
 
 import static airtel.comviva.mahindra.radar.db.tables.DbConsts.*;
 
@@ -60,7 +61,8 @@ public class TableSMSReport {
 
     }
 
-    public static void updateStatus(SQLiteDatabase db, int status, int id, @Nullable String respMsg) {
+    public static void updateStatus(SQLiteDatabase db, int status, int id,
+                                    @Nullable String respMsg, @Nullable String sender) {
         ContentValues cv = new ContentValues();
         cv.put(Columns.STATUS, status);
         switch (status) {
@@ -74,13 +76,17 @@ public class TableSMSReport {
                 cv.put(Columns.RECEIVED_TIMESTAMP, System.currentTimeMillis());
                 break;
         }
-        db.update(TABLE_NAME, cv, Columns.ID + " = ?", new String[]{String.valueOf(id)});
+        String whereQuery = Columns.ID + " = ? AND " + Columns.STATUS + " <= " + SMSReportItem.STATUS_DELIVERED;
+        if (sender != null) {
+            whereQuery += " AND " + Columns.RECIPIENT + " = " + sender;
+        }
+        db.update(TABLE_NAME, cv, whereQuery, new String[]{String.valueOf(id)});
     }
 
     public static ArrayList<SMSReportItem> getAllByStatus(SQLiteDatabase db, int status) {
         Cursor c = db.query(TABLE_NAME,
                 FULL_PROJECTION, Columns.STATUS + " = ?", new String[]{String.valueOf(status)},
-                null, null, Columns.ID + " DESC");
+                null, null, Columns.SEND_TIMESTAMP + " DESC");
         ArrayList<SMSReportItem> smsReports = new ArrayList<>();
 
         while (c.moveToNext()) {
@@ -102,7 +108,7 @@ public class TableSMSReport {
 
     public static ArrayList<SMSReportItem> getAllReports(SQLiteDatabase db) {
         Cursor c = db.query(TABLE_NAME,
-                FULL_PROJECTION, null, null, null, null, Columns.ID + " DESC");
+                FULL_PROJECTION, null, null, null, null, Columns.SEND_TIMESTAMP + " DESC");
 
         ArrayList<SMSReportItem> smsReports = new ArrayList<>();
 

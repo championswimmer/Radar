@@ -40,9 +40,9 @@ public abstract class SmsReceivedReceiver extends BroadcastReceiver {
                     smsSender = smsmsg.getOriginatingAddress();
                 }
                 Log.d(TAG, "onReceive: " + smsSender + " : " + smsMsgBody);
-                onSmsReceived(smsSender, smsMsgBody);
+                onSmsReceived(context, smsSender, smsMsgBody);
             }
         }
     }
-    public abstract void onSmsReceived(String sender, String msgBody);
+    public abstract void onSmsReceived(Context c, String sender, String msgBody);
 }

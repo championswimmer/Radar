@@ -30,12 +30,14 @@ public class SmsSlaInvalidatorService extends Service {
 
         if (intent != null) {
             int msgId = intent.getIntExtra(SmsSender.EXTRA_MSG_CODE, 0);
+            String recipient = intent.getStringExtra(SmsSender.EXTRA_RECEPIENT);
+            Log.d(TAG, "onStartCommand: " + msgId);
             TableSMSReport.updateStatus((new DbManager(this)).getWritableDatabase(),
                     SMSReportItem.STATUS_RESP_FAILED,
                     msgId,
-                    null);
+                    null,
+                    recipient);
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
 }

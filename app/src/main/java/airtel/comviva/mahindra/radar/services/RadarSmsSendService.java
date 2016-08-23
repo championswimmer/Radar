@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.util.Log;
 
+import airtel.comviva.mahindra.radar.PrefUtils;
 import in.championswimmer.phonytale.SmsSender;
 import in.championswimmer.phonytale.services.SmsSendService;
 import airtel.comviva.mahindra.radar.db.DbManager;
@@ -32,9 +33,10 @@ public class RadarSmsSendService extends SmsSendService {
     public void onSmsSending(String recipient, String message, int smsId, int interval) {
         Log.d(TAG, "onSmsSending: ");
         TableSMSReport.addNew(db, smsId, recipient, message, SMSReportItem.STATUS_SENDING);
-        Intent i = new Intent(this, SmsSlaInvalidatorService.class);
+        Intent i = new Intent(getApplicationContext(), SmsSlaInvalidatorService.class);
         i.putExtra(SmsSender.EXTRA_MSG_CODE, smsId);
-        PendingIntent pi = PendingIntent.getService(this, 99, i, 0);
+        i.putExtra(SmsSender.EXTRA_RECEPIENT, recipient);
+        PendingIntent pi = PendingIntent.getService(getApplicationContext(), 99, i, 0);
         AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Log.d(TAG, "onSmsSending: " + pi.toString() + i.toString());
@@ -47,17 +49,18 @@ public class RadarSmsSendService extends SmsSendService {
                     (System.currentTimeMillis() + (interval * 60 * 1000)),
                     pi);
         }
+        PrefUtils.setLastSmsId(this, smsId);
 
     }
 
     @Override
     public void onSmsSent(String recipient, String message, int smsId) {
-        TableSMSReport.updateStatus(db, SMSReportItem.STATUS_SENT, smsId, null);
+        TableSMSReport.updateStatus(db, SMSReportItem.STATUS_SENT, smsId, null, null);
     }
 
     @Override
     public void onSmsDelivered(String recipient, String message, int smsId) {
-        TableSMSReport.updateStatus(db, SMSReportItem.STATUS_DELIVERED, smsId, null);
+        TableSMSReport.updateStatus(db, SMSReportItem.STATUS_DELIVERED, smsId, null, null);
 
     }
 

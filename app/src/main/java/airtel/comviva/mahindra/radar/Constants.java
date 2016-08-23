@@ -18,4 +18,11 @@ public class Constants {
             READ_PHONE_STATE,
             PROCESS_OUTGOING_CALLS
     };
+
+    public static final String PREFS_SMS = "sms";
+
+
+    public interface PrefKeys {
+        String LAST_SMS_ID = "last_sms_id";
+    }
 }
