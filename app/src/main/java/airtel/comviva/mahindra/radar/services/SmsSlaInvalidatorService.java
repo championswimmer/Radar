@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import airtel.comviva.mahindra.radar.db.DbManager;
 import airtel.comviva.mahindra.radar.db.tables.TableSMSReport;
@@ -15,6 +16,8 @@ import in.championswimmer.phonytale.SmsSender;
  */
 public class SmsSlaInvalidatorService extends Service {
 
+    public static final String TAG = "SMSSLAInvalid";
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -23,6 +26,7 @@ public class SmsSlaInvalidatorService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand: ");
 
         if (intent != null) {
             int msgId = intent.getIntExtra(SmsSender.EXTRA_MSG_CODE, 0);

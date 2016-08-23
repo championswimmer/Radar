@@ -96,7 +96,7 @@ public class SmsSender {
         msi.setData(PhonytaleUri.createSendSMS(
                 destination,
                 message,
-                0));
+                3));
         msi.putExtra(SmsSender.EXTRA_RECEPIENT, destination);
         msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, message);
         ctx.startService(msi);
