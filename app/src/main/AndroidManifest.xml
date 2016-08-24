@@ -83,6 +83,9 @@
         <service android:name=".services.SmsSlaInvalidatorService"
             android:enabled="true"
             android:exported="true"/>
+        <service android:name=".services.UssdSlaInvalidatorService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

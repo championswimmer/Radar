@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import airtel.comviva.mahindra.radar.db.DbUtils;
 import airtel.comviva.mahindra.radar.models.SMSReportItem;
 import airtel.comviva.mahindra.radar.models.USSDReportItem;
 
@@ -41,7 +43,9 @@ public class TableUSSDReport {
     }
 
     public static String[] FULL_PROJECTION = {
-            Columns.ID, Columns.RECIPIENT, Columns.TIMESTAMP
+            Columns.ID, Columns.RECIPIENT, Columns.TIMESTAMP,
+            Columns.STATUS, Columns.COUNT_RESP,
+            Columns.RECEIVE_TIMESTAMPS, Columns.RECEIVED_USSD_MSGS
     };
 
     public static final String CMD_CREATE_TABLE =
@@ -66,11 +70,55 @@ public class TableUSSDReport {
 
     }
 
-//    public static void updateStatus(SQLiteDatabase db, int status, int id) {
-//        ContentValues cv = new ContentValues();
-//        cv.put(Columns.STATUS, status);
-//        db.update(TABLE_NAME, cv, Columns.ID + " = ?", new String[]{String.valueOf(id)});
-//    }
+    public static int failSla(SQLiteDatabase db) {
+        ContentValues cv = new ContentValues();
+        cv.put(Columns.STATUS, STATUS_SLA_FAILED);
+        return db.update(TABLE_NAME, cv, Columns.STATUS + " = ?",
+                new String[]{
+                        String.valueOf(STATUS_SENT)
+                });
+    }
+
+    public static int addResponse(SQLiteDatabase db, String message) {
+        USSDReportItem latestReport = getLatestSent(db);
+        if (latestReport == null) {
+            return 0;
+        }
+        ArrayList<String> rcvdMsgs = new ArrayList<>(latestReport.getRecvdMsgs()) ;
+        ArrayList<Integer> rcvdTimes = new ArrayList<>(latestReport.getRecvdTimes()) ;
+
+        rcvdMsgs.add(message);
+        rcvdTimes.add((int) (System.currentTimeMillis() >> 8));
+
+        ContentValues cv = new ContentValues();
+        cv.put(Columns.RECEIVE_TIMESTAMPS, DbUtils.convertIntListToString(rcvdTimes));
+        cv.put(Columns.RECEIVED_USSD_MSGS, DbUtils.convertStrListToString(rcvdMsgs));
+        cv.put(Columns.STATUS, STATUS_SLA_PASSED);
+
+        return db.update(TABLE_NAME, cv, Columns.ID + " = ? AND " + Columns.STATUS + " = ?",
+                new String[]{
+                        String.valueOf(latestReport.getUssdId()),
+                        String.valueOf(STATUS_SENT)
+                });
+    }
+
+    public static USSDReportItem getLatestSent(SQLiteDatabase db) {
+        Cursor c = db.query(TABLE_NAME, FULL_PROJECTION, Columns.STATUS + " = ?",
+                new String[]{String.valueOf(STATUS_SENT)}, null, null, Columns.ID + " DESC", "1");
+        USSDReportItem ussdReportItem = null;
+        if (c != null && c.moveToFirst()) {
+            ussdReportItem = new USSDReportItem(
+                    c.getInt(c.getColumnIndexOrThrow(Columns.ID)),
+                    c.getString(c.getColumnIndexOrThrow(Columns.RECIPIENT)),
+                    c.getLong(c.getColumnIndexOrThrow(Columns.TIMESTAMP)),
+                    c.getInt(c.getColumnIndexOrThrow(Columns.STATUS)),
+                    c.getString(c.getColumnIndexOrThrow(Columns.RECEIVE_TIMESTAMPS)),
+                    c.getString(c.getColumnIndexOrThrow(Columns.RECEIVED_USSD_MSGS))
+            );
+        }
+        c.close();
+        return ussdReportItem;
+    }
 
     public static ArrayList<USSDReportItem> getAllReports(SQLiteDatabase db) {
         Cursor c = db.query(TABLE_NAME,
@@ -80,11 +128,15 @@ public class TableUSSDReport {
 
         while (c.moveToNext()) {
             ussdReports.add(new USSDReportItem(
+                    c.getInt(c.getColumnIndexOrThrow(Columns.ID)),
                     c.getString(c.getColumnIndexOrThrow(Columns.RECIPIENT)),
-                    c.getLong(c.getColumnIndexOrThrow(Columns.TIMESTAMP))
+                    c.getLong(c.getColumnIndexOrThrow(Columns.TIMESTAMP)),
+                    c.getInt(c.getColumnIndexOrThrow(Columns.STATUS)),
+                    c.getString(c.getColumnIndexOrThrow(Columns.RECEIVE_TIMESTAMPS)),
+                    c.getString(c.getColumnIndexOrThrow(Columns.RECEIVED_USSD_MSGS))
             ));
         }
-
+        c.close();
         return ussdReports;
     }
 

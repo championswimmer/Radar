@@ -77,7 +77,7 @@ public class ReportUSSDFragment extends BaseRadarFragment {
 
     public class USSDReportHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvUSSDCode, tvTimestamp;
+        public TextView tvUSSDCode, tvTimestamp, tvSlaStatus;
         public View itemView;
 
         public USSDReportHolder(View itemView) {
@@ -85,6 +85,7 @@ public class ReportUSSDFragment extends BaseRadarFragment {
 
             tvUSSDCode = (TextView) itemView.findViewById(R.id.tv_ussd_code);
             tvTimestamp = (TextView) itemView.findViewById(R.id.tv_timestamp);
+            tvSlaStatus = (TextView) itemView.findViewById(R.id.tv_sla_status);
             this.itemView = itemView;
         }
 
@@ -107,6 +108,7 @@ public class ReportUSSDFragment extends BaseRadarFragment {
             holder.tvUSSDCode.setText(ussdReports.get(position).getUssdCode());
             Log.d(TAG, "onBindViewHolder: " + ussdReports.get(position).getTimeStamp());
             holder.tvTimestamp.setText(String.valueOf(ussdReports.get(position).getTimeStamp()));
+            holder.tvSlaStatus.setText(String.valueOf(ussdReports.get(position).getStatusString()));
 
         }
 

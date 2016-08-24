@@ -15,6 +15,7 @@ public abstract class USSDReceiveService extends AccessibilityService {
         Log.d(TAG, "onAccessibilityEvent: ");
         if (event.getClassName().equals("android.app.AlertDialog")) {
             Log.d(TAG, "onAccessibilityEvent: " + event.getText().toString());
+            onUSSDReceived(event.getText().toString());
         }
     }
 
