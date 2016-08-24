@@ -16,7 +16,9 @@ public class Constants {
             CALL_PHONE,
             READ_CALL_LOG,
             READ_PHONE_STATE,
-            PROCESS_OUTGOING_CALLS
+            PROCESS_OUTGOING_CALLS,
+
+            WRITE_EXTERNAL_STORAGE
     };
 
     public static final String PREFS_SMS = "sms";

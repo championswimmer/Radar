@@ -40,6 +40,32 @@ public class DbUtils {
         return intList;
     }
 
+    public static String convertLongListToString(List<Long> longList) {
+        StringBuilder stringBuffer = new StringBuilder();
+        for (Long str : longList) {
+            stringBuffer.append(str).append(LIST_SEPARATOR);
+        }
+
+        // Remove last separator
+        int lastIndex = stringBuffer.lastIndexOf(LIST_SEPARATOR);
+        stringBuffer.delete(lastIndex, lastIndex + LIST_SEPARATOR.length() + 1);
+
+        return stringBuffer.toString();
+    }
+
+    public static List<Long> convertStringToLongList(String str) {
+        if (str == null) {
+            str = "0";
+        }
+        String[] strList = (str.split(LIST_SEPARATOR));
+        List<Long> longList = new ArrayList<Long>(strList.length);
+        for (String s : strList) {
+            Log.d(TAG, "convertStringToIntList: " + s);
+            longList.add(Long.valueOf(s));
+        }
+        return longList;
+    }
+
     public static String convertStrListToString(List<String> stringList) {
         StringBuffer stringBuffer = new StringBuffer();
         for (String str : stringList) {

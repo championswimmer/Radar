@@ -10,6 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -109,6 +112,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case (R.id.action_dbdump):
+                {
+                    Db2JsonDumpTask jsonDumpTask = new Db2JsonDumpTask(this);
+                    jsonDumpTask.execute();
+                }
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

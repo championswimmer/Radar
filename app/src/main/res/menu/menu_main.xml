@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="airtel.comviva.mahindra.radar.activities.ReportActivity">
+    <item
+        android:id="@+id/action_dbdump"
+        android:orderInCategory="100"
+        android:icon="@android:drawable/stat_sys_download"
+        android:title="Create JSON Reports"
+        app:showAsAction="never" />
+</menu>

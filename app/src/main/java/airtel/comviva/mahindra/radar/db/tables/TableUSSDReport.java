@@ -85,13 +85,13 @@ public class TableUSSDReport {
             return 0;
         }
         ArrayList<String> rcvdMsgs = new ArrayList<>(latestReport.getRecvdMsgs()) ;
-        ArrayList<Integer> rcvdTimes = new ArrayList<>(latestReport.getRecvdTimes()) ;
+        ArrayList<Long> rcvdTimes = new ArrayList<>(latestReport.getRecvdTimes()) ;
 
         rcvdMsgs.add(message);
-        rcvdTimes.add((int) (System.currentTimeMillis() >> 8));
+        rcvdTimes.add((System.currentTimeMillis()));
 
         ContentValues cv = new ContentValues();
-        cv.put(Columns.RECEIVE_TIMESTAMPS, DbUtils.convertIntListToString(rcvdTimes));
+        cv.put(Columns.RECEIVE_TIMESTAMPS, DbUtils.convertLongListToString(rcvdTimes));
         cv.put(Columns.RECEIVED_USSD_MSGS, DbUtils.convertStrListToString(rcvdMsgs));
         cv.put(Columns.STATUS, STATUS_SLA_PASSED);
 

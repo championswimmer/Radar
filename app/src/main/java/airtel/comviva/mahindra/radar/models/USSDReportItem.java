@@ -13,7 +13,7 @@ public class USSDReportItem {
     int ussdId;
     String ussdCode;
     Long timeStamp;
-    List<Integer> recvdTimes;
+    List<Long> recvdTimes;
     List<String> recvdMsgs;
     int status;
 
@@ -30,7 +30,7 @@ public class USSDReportItem {
         this.timeStamp = timeStamp;
         this.status = status;
         this.recvdMsgs = DbUtils.convertStringToStrList(rcvdMsgs);
-        this.recvdTimes = DbUtils.convertStringToIntList(rcvdTimes);
+        this.recvdTimes = DbUtils.convertStringToLongList(rcvdTimes);
     }
 
     public int getStatus() {
@@ -57,15 +57,15 @@ public class USSDReportItem {
         this.timeStamp = timeStamp;
     }
 
-    public List<Integer> getRecvdTimes() {
+    public List<Long> getRecvdTimes() {
         return recvdTimes;
     }
 
-    public void setRecvdTimes(List<Integer> recvdTimes) {
+    public void setRecvdTimes(List<Long> recvdTimes) {
         this.recvdTimes = recvdTimes;
     }
     public void setRecvdTimes(String recvdTimes) {
-        this.recvdTimes = DbUtils.convertStringToIntList(recvdTimes);
+        this.recvdTimes = DbUtils.convertStringToLongList(recvdTimes);
     }
 
     public List<String> getRecvdMsgs() {
