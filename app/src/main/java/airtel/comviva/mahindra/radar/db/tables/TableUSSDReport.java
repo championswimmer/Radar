@@ -26,10 +26,18 @@ public class TableUSSDReport {
 
     public static final String TABLE_NAME = "ussdreports";
 
+    public static final int STATUS_SENT = 0;
+    public static final int STATUS_SLA_PASSED = 1;
+    public static final int STATUS_SLA_FAILED = 2;
+
     public interface Columns {
         String ID = "id";
         String RECIPIENT = "recipient";
         String TIMESTAMP = "timestamp";
+        String STATUS = "status";
+        String COUNT_RESP = "count_resp";
+        String RECEIVE_TIMESTAMPS = "received_timestamps";
+        String RECEIVED_USSD_MSGS = "received_ussd_msgs";
     }
 
     public static String[] FULL_PROJECTION = {
@@ -40,6 +48,10 @@ public class TableUSSDReport {
             CREATE_TABLE_IF_NOT_EXISTS + TABLE_NAME + SPACE + LBR
                     + Columns.ID + TYPE_INTEGER + TYPE_PK + COMMA
                     + Columns.RECIPIENT + TYPE_TEXT + COMMA
+                    + Columns.STATUS + TYPE_INTEGER + COMMA
+                    + Columns.COUNT_RESP + TYPE_INTEGER + COMMA
+                    + Columns.RECEIVE_TIMESTAMPS + TYPE_TEXT + COMMA
+                    + Columns.RECEIVED_USSD_MSGS + TYPE_TEXT + COMMA
                     + Columns.TIMESTAMP + TYPE_INTEGER
                     + RBR + SEMICOLON;
 
@@ -48,6 +60,7 @@ public class TableUSSDReport {
         cv.put(Columns.ID, ussdId);
         cv.put(Columns.RECIPIENT, recipient);
         cv.put(Columns.TIMESTAMP, timestamp);
+        cv.put(Columns.STATUS, STATUS_SENT);
 
         return (int) db.insert(TABLE_NAME, null, cv);
 

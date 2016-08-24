@@ -5,13 +5,27 @@ package airtel.comviva.mahindra.radar.models;
  */
 public class USSDReportItem {
 
+    int ussdId;
     String ussdCode;
     Long timeStamp;
+    int[] recvdTimes;
+    String recvdMsgs;
 
 
     public USSDReportItem(String ussdCode, long timeStamp) {
         this.ussdCode = ussdCode;
         this.timeStamp = timeStamp;
+    }
+
+
+
+
+    public int getUssdId() {
+        return ussdId;
+    }
+
+    public void setUssdId(int ussdId) {
+        this.ussdId = ussdId;
     }
 
     public String getUssdCode() {
