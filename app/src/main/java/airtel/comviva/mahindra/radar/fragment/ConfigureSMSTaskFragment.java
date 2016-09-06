@@ -23,7 +23,7 @@ public class ConfigureSMSTaskFragment extends BaseRadarFragment {
 
     public static final String TAG = "ConfSMS";
 
-    EditText etRecipient, etInterval, etMsgContents;
+    EditText etRecipient, etInterval, etMsgContents, etTimeout, etExpected;
     Button btnCreate;
 
 
@@ -42,6 +42,8 @@ public class ConfigureSMSTaskFragment extends BaseRadarFragment {
         etRecipient = (EditText) rootView.findViewById(R.id.et_recipient);
         etInterval = (EditText) rootView.findViewById(R.id.et_interval);
         etMsgContents = (EditText) rootView.findViewById(R.id.et_msg_content);
+        etTimeout = (EditText) rootView.findViewById(R.id.et_timeout);
+        etExpected = (EditText) rootView.findViewById(R.id.et_expected_msg);
         btnCreate = (Button) rootView.findViewById(R.id.btn_create_sms);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
@@ -50,12 +52,16 @@ public class ConfigureSMSTaskFragment extends BaseRadarFragment {
                 Log.d(TAG, "onClick: ");
                 String recipient = etRecipient.getText().toString();
                 String msgContent = etMsgContents.getText().toString();
+                String expected = etExpected.getText().toString();
+                int timeout = Integer.valueOf(etTimeout.getText().toString());
                 int interval = Integer.valueOf(etInterval.getText().toString());
 
                 SmsSender.createSmsSendingTask(
                         recipient,
                         msgContent,
                         interval,
+                        timeout,
+                        expected,
                         getActivity()
                 );
 

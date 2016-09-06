@@ -29,6 +29,8 @@ public class SmsSender {
     public static final String EXTRA_RECEPIENT = "recepient";
     public static final String EXTRA_MSG_CODE = "msg_code";
     public static final String EXTRA_SMS_CONTENT = "sms_content";
+    public static final String EXTRA_TIMEOUT = "timeout";
+    public static final String EXTRA_EXPECTED_MSG = "expected_msg";
 
     public static void initialise () {
         if (sManager == null) {
@@ -102,7 +104,9 @@ public class SmsSender {
         ctx.startService(msi);
     }
 
-    public static void createSmsSendingTask(String recipient, String msgContent, int interval, Context ctx) {
+    public static void createSmsSendingTask(String recipient, String msgContent,
+                                            int interval, int timeout,
+                                            String expectedMsg, Context ctx) {
         Log.d(TAG, "createSmsSendingTask: ");
         AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
 
@@ -111,6 +115,8 @@ public class SmsSender {
         msi.setAction(SmsSender.ACTION_SEND_SMS);
         msi.setData(PhonytaleUri.createSendSMS(recipient, msgContent, interval));
         msi.putExtra(SmsSender.EXTRA_RECEPIENT, recipient);
+        msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, msgContent);
+        msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, msgContent);
         msi.putExtra(SmsSender.EXTRA_SMS_CONTENT, msgContent);
 
 

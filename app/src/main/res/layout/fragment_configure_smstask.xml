@@ -28,10 +28,25 @@
             android:layout_height="wrap_content" />
         <EditText
             android:ems="12"
-            android:minLines="3"
+            android:maxLength="2"
+            android:id="@+id/et_timeout"
+            android:hint="SLA Timeout (min)"
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:ems="12"
+            android:minLines="1"
             android:gravity="bottom"
             android:id="@+id/et_msg_content"
-            android:hint="Message\nContents"
+            android:hint="Message Contents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_expected_msg"
+            android:ems="12"
+            android:minLines="2"
+            android:hint="Expected\nResponse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

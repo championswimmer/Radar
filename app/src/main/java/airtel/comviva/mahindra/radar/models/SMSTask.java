@@ -5,6 +5,8 @@ package airtel.comviva.mahindra.radar.models;
  */
 public class SMSTask {
     int interval;
+    int timeout;
+    int expectedResponse;
     String recipient;
     String message;
 
